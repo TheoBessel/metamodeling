@@ -1,0 +1,20 @@
+# Eclipse specific ignores
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# EMF specific ignores
+target/
+bin/
