@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="petrinet" nsURI="http://www.example.org/petrinet" nsPrefix="petrinet">
+  <eClassifiers xsi:type="ecore:EClass" name="PetriNetwork">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arcs" upperBound="-1" eType="#//Arc"
+        containment="true" eOpposite="#//Arc/petriNet"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transitions" upperBound="-1"
+        eType="#//Transition" containment="true" eOpposite="#//Transition/petriNet"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="places" upperBound="-1"
+        eType="#//Place" containment="true" eOpposite="#//Place/petriNet"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Transition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="petriNet" lowerBound="1"
+        eType="#//PetriNetwork" eOpposite="#//PetriNetwork/transitions"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Arc">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//ArcKind"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" lowerBound="1"
+        eType="#//ArcDirection"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transition" lowerBound="1"
+        eType="#//Transition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="place" lowerBound="1" eType="#//Place"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="petriNet" lowerBound="1"
+        eType="#//PetriNetwork" eOpposite="#//PetriNetwork/arcs"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Place">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="marking" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="petriNet" lowerBound="1"
+        eType="#//PetriNetwork" eOpposite="#//PetriNetwork/places"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ArcKind">
+    <eLiterals name="normal"/>
+    <eLiterals name="read"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ArcDirection">
+    <eLiterals name="P2T"/>
+    <eLiterals name="T2P"/>
+  </eClassifiers>
+</ecore:EPackage>

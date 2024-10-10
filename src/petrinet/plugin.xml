@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated petrinet -->
+      <package
+            uri="http://www.example.org/petrinet"
+            class="petrinet.PetrinetPackage"
+            genModel="model/petrinet.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated petrinet -->
+      <factory
+            uri="http://www.example.org/petrinet"
+            class="petrinet.edit.PetrinetItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated petrinet -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="petrinet.editor.PetrinetModelWizardID"
+            name="%_UI_PetrinetModelWizard_label"
+            class="petrinet.editor.PetrinetModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/PetrinetModelFile.gif">
+         <description>%_UI_PetrinetModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated petrinet -->
+      <editor
+            id="petrinet.editor.PetrinetEditorID"
+            name="%_UI_PetrinetEditor_label"
+            icon="icons/full/obj16/PetrinetModelFile.gif"
+            extensions="petrinet"
+            class="petrinet.editor.PetrinetEditor"
+            contributorClass="petrinet.editor.PetrinetActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>
