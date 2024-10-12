@@ -29,7 +29,7 @@ public class SimplePDLManipulator {
 		ResourceSet resSet = new ResourceSetImpl();
 
 		// Charger la ressource (notre modèle)
-		URI modelURI = URI.createURI("target/SimplePDLCreator_Created_Process.xmi");
+		URI modelURI = URI.createURI("target/SimplePDLExample1.xmi");
 		Resource resource = resSet.getResource(modelURI, true);
 		
 		// Récupérer le premier élément du modèle (élément racine)

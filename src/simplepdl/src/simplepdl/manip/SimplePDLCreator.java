@@ -34,7 +34,7 @@ public class SimplePDLCreator {
 		ResourceSet resSet = new ResourceSetImpl();
 
 		// Définir la ressource (le modèle)
-		URI modelURI = URI.createURI("target/SimplePDLCreator_Created_Process.xmi");
+		URI modelURI = URI.createURI("target/SimplePDLExample1.xmi");
 		Resource resource = resSet.createResource(modelURI);
 		
 		// La fabrique pour fabriquer les éléments de SimplePDL
@@ -42,17 +42,17 @@ public class SimplePDLCreator {
 
 		// Créer un élément Process
 		Process process = myFactory.createProcess();
-		process.setName("Mon premier processus");
+		process.setName("myProcess");
 		
 		// Ajouter le Process dans le modèle
 		resource.getContents().add(process);
 
 		// Ajouter deux WorkDefinitions
 	    WorkDefinition wd1 = myFactory.createWorkDefinition();
-	    wd1.setName("Ma première WorkDefinition, quelle émotion");
+	    wd1.setName("workDef1");
 	    
 	    WorkDefinition wd2 = myFactory.createWorkDefinition();
-	    wd2.setName("Ma deuxième WorkDefinition, toujours autant d'émotion");
+	    wd2.setName("workDef2");
 	    
 	    process.getProcessElements().add(wd1);
 	    process.getProcessElements().add(wd2);

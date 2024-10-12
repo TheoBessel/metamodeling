@@ -141,13 +141,22 @@ public interface PetrinetPackage extends EPackage {
 	int TRANSITION__PETRI_NET = 0;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION__NAME = 1;
+
+	/**
 	 * The number of structural features of the '<em>Transition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_FEATURE_COUNT = 1;
+	int TRANSITION_FEATURE_COUNT = 2;
 
 	/**
 	 * The number of operations of the '<em>Transition</em>' class.
@@ -391,6 +400,17 @@ public interface PetrinetPackage extends EPackage {
 	EReference getTransition_PetriNet();
 
 	/**
+	 * Returns the meta object for the attribute '{@link petrinet.Transition#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see petrinet.Transition#getName()
+	 * @see #getTransition()
+	 * @generated
+	 */
+	EAttribute getTransition_Name();
+
+	/**
 	 * Returns the meta object for class '{@link petrinet.Arc <em>Arc</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -611,6 +631,14 @@ public interface PetrinetPackage extends EPackage {
 		 * @generated
 		 */
 		EReference TRANSITION__PETRI_NET = eINSTANCE.getTransition_PetriNet();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TRANSITION__NAME = eINSTANCE.getTransition_Name();
 
 		/**
 		 * The meta object literal for the '{@link petrinet.model.ArcImpl <em>Arc</em>}' class.

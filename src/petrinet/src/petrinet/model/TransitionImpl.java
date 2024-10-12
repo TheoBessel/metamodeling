@@ -26,11 +26,31 @@ import petrinet.Transition;
  * </p>
  * <ul>
  *   <li>{@link petrinet.model.TransitionImpl#getPetriNet <em>Petri Net</em>}</li>
+ *   <li>{@link petrinet.model.TransitionImpl#getName <em>Name</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class TransitionImpl extends EObjectImpl implements Transition {
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = null;
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -103,6 +123,29 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * @generated
 	 */
 	@Override
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PetrinetPackage.TRANSITION__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case PetrinetPackage.TRANSITION__PETRI_NET:
@@ -152,6 +195,8 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 		switch (featureID) {
 		case PetrinetPackage.TRANSITION__PETRI_NET:
 			return getPetriNet();
+		case PetrinetPackage.TRANSITION__NAME:
+			return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -166,6 +211,9 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 		switch (featureID) {
 		case PetrinetPackage.TRANSITION__PETRI_NET:
 			setPetriNet((PetriNetwork) newValue);
+			return;
+		case PetrinetPackage.TRANSITION__NAME:
+			setName((String) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -182,6 +230,9 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 		case PetrinetPackage.TRANSITION__PETRI_NET:
 			setPetriNet((PetriNetwork) null);
 			return;
+		case PetrinetPackage.TRANSITION__NAME:
+			setName(NAME_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -196,8 +247,27 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 		switch (featureID) {
 		case PetrinetPackage.TRANSITION__PETRI_NET:
 			return getPetriNet() != null;
+		case PetrinetPackage.TRANSITION__NAME:
+			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy())
+			return super.toString();
+
+		StringBuilder result = new StringBuilder(super.toString());
+		result.append(" (name: ");
+		result.append(name);
+		result.append(')');
+		return result.toString();
 	}
 
 } //TransitionImpl

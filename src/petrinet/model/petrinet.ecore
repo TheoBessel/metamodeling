@@ -13,6 +13,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Transition">
     <eStructuralFeatures xsi:type="ecore:EReference" name="petriNet" lowerBound="1"
         eType="#//PetriNetwork" eOpposite="#//PetriNetwork/transitions"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Arc">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" lowerBound="1"

@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link petrinet.Transition#getPetriNet <em>Petri Net</em>}</li>
+ *   <li>{@link petrinet.Transition#getName <em>Name</em>}</li>
  * </ul>
  *
  * @see petrinet.PetrinetPackage#getTransition()
@@ -44,5 +45,27 @@ public interface Transition extends EObject {
 	 * @generated
 	 */
 	void setPetriNet(PetriNetwork value);
+
+	/**
+	 * Returns the value of the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see petrinet.PetrinetPackage#getTransition_Name()
+	 * @model
+	 * @generated
+	 */
+	String getName();
+
+	/**
+	 * Sets the value of the '{@link petrinet.Transition#getName <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Name</em>' attribute.
+	 * @see #getName()
+	 * @generated
+	 */
+	void setName(String value);
 
 } // Transition

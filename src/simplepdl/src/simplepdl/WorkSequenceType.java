@@ -36,7 +36,7 @@ public enum WorkSequenceType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	FINISH_TO_START(0, "finishToStart", "finishToStart"),
+	FINISH_TO_START(1, "finishToStart", "finishToStart"),
 
 	/**
 	 * The '<em><b>Start To Finish</b></em>' literal object.
@@ -46,7 +46,7 @@ public enum WorkSequenceType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	START_TO_FINISH(0, "startToFinish", "startToFinish"),
+	START_TO_FINISH(2, "startToFinish", "startToFinish"),
 
 	/**
 	 * The '<em><b>Finish To Finish</b></em>' literal object.
@@ -56,7 +56,7 @@ public enum WorkSequenceType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	FINISH_TO_FINISH(0, "finishToFinish", "finishToFinish");
+	FINISH_TO_FINISH(3, "finishToFinish", "finishToFinish");
 
 	/**
 	 * The '<em><b>Start To Start</b></em>' literal value.
@@ -78,7 +78,7 @@ public enum WorkSequenceType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int FINISH_TO_START_VALUE = 0;
+	public static final int FINISH_TO_START_VALUE = 1;
 
 	/**
 	 * The '<em><b>Start To Finish</b></em>' literal value.
@@ -89,7 +89,7 @@ public enum WorkSequenceType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int START_TO_FINISH_VALUE = 0;
+	public static final int START_TO_FINISH_VALUE = 2;
 
 	/**
 	 * The '<em><b>Finish To Finish</b></em>' literal value.
@@ -100,7 +100,7 @@ public enum WorkSequenceType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int FINISH_TO_FINISH_VALUE = 0;
+	public static final int FINISH_TO_FINISH_VALUE = 3;
 
 	/**
 	 * An array of all the '<em><b>Work Sequence Type</b></em>' enumerators.
@@ -171,6 +171,9 @@ public enum WorkSequenceType implements Enumerator {
 	public static WorkSequenceType get(int value) {
 		switch (value) {
 			case START_TO_START_VALUE: return START_TO_START;
+			case FINISH_TO_START_VALUE: return FINISH_TO_START;
+			case START_TO_FINISH_VALUE: return START_TO_FINISH;
+			case FINISH_TO_FINISH_VALUE: return FINISH_TO_FINISH;
 		}
 		return null;
 	}
