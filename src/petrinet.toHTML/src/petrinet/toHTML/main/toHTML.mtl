@@ -1,0 +1,172 @@
+[comment encoding = UTF-8 /]
+[module toHTML('http://www.example.org/petrinet')]
+
+
+[template public petrinetToHTML(aPetriNetwork : PetriNetwork)]
+[comment @main/]
+[file (aPetriNetwork.name + '.html', false, 'UTF-8')]
+	<head>
+		<title>[aPetriNetwork.name/]</title>
+		<style>
+			* {
+				font-family: sans-serif;
+			}
+
+			#fields {
+				display: flex;
+				gap: 4rem;
+			}
+
+			table {
+				border-collapse: collapse;
+				border: 2px solid rgb(140 140 140);
+				font-family: sans-serif;
+				font-size: 0.8rem;
+				letter-spacing: 1px;
+			}
+			
+			caption {
+				caption-side: bottom;
+				padding: 10px;
+				font-weight: bold;
+			}
+
+			thead, tfoot {
+				background-color: rgb(228 240 245);
+			}
+
+			th, td {
+				border: 1px solid rgb(160 160 160);
+				padding: 8px 10px;
+			}
+
+			td:last-of-type {
+				text-align: center;
+			}
+
+			tbody > tr:nth-of-type(even) {
+				background-color: rgb(237 238 242);
+			}
+
+			tfoot th {
+				text-align: right;
+			}
+
+			tfoot td {
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Petrinet : [aPetriNetwork.name/]</h1>
+
+		<div id="fields">
+			<div id="places">
+				<h2>Places :</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Marking</th>
+						</tr>
+					</thead>
+					<tbody>
+						[let places : OrderedSet(Place) = aPetriNetwork.getPlaces() ] 
+							[if (places->size() > 0)]
+								[for (place : Place | places)]
+									[place.toHTML()/]
+								[/for]
+							[/if]
+						[/let]
+					</tbody>
+				</table>
+			</div>
+
+			<div id="transitions">
+				<h2>Transitions :</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						[let transitions : OrderedSet(Transition) = aPetriNetwork.getTransitions() ] 
+							[if (transitions->size() > 0)]
+								[for (transition : Transition | transitions)]
+									[transition.toHTML()/]
+								[/for]
+							[/if]
+						[/let]
+					</tbody>
+				</table>
+			</div>
+
+			<div id="arcs">
+				<h2>Arcs :</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>From</th>
+							<th>To</th>
+							<th>Type</th>
+							<th>Weight</th>
+						</tr>
+					</thead>
+					<tbody>
+						[let arcs : OrderedSet(Arc) = aPetriNetwork.getArcs() ] 
+							[if (arcs->size() > 0)]
+								[for (arc : Arc | arcs)]
+									[arc.toHTML()/]
+								[/for]
+							[/if]
+						[/let]
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+[/file]
+[/template]
+
+[comment Place class relative /]
+[query public getPlaces(p: PetriNetwork) : OrderedSet(Place) = 
+	p.places->asOrderedSet()
+/]
+
+[template public toHTML(place : Place) post (trim()) ]
+	<tr>
+		<th>[place.name/]</th>
+		<td>[place.marking/]</td>
+	</tr>
+[/template]
+
+[comment Transition class relative /]
+[query public getTransitions(p: PetriNetwork) : OrderedSet(Transition) = 
+	p.transitions->asOrderedSet()
+/]
+
+[template public toHTML(transition : Transition) post (trim()) ]
+	<tr>
+		<td>[transition.name/]</td>
+	</tr>
+[/template]
+
+[comment Arc class relative /]
+[query public getArcs(p: PetriNetwork) : OrderedSet(Arc) = 
+	p.arcs->asOrderedSet()
+/]
+
+[template public toHTML(arc : Arc) post (trim()) ]
+	<tr>
+		[if arc.direction.toString() = 'P2T']
+			<th>[arc.place.name/]</th>
+			<td>[arc.transition.name/]</td>
+		[else]
+			<td>[arc.transition.name/]</td>
+			<th>[arc.place.name/]</th>
+		[/if]
+		<td>[arc.kind.toString()/]</td>
+		<td>[arc.weight/]</td>
+	</tr>
+[/template]
