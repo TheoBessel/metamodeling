@@ -1,0 +1,47 @@
+[comment encoding = UTF-8 /]
+[module toDot('http://www.example.org/petrinet')]
+
+
+[template public petrinetToDot(aPetriNetwork : PetriNetwork)]
+[comment @main/]
+[file (aPetriNetwork.name + '.dot', false, 'UTF-8')]
+digraph [aPetriNetwork.name/] {
+	forcelabels=true
+	[for (place : Place | aPetriNetwork.places)]
+		[place.name/] [place.propsString()/]
+	[/for]
+
+	[for (transition : Transition | aPetriNetwork.transitions)]
+		[transition.name/] [transition.propsString()/]
+	[/for]
+
+	[for (arc : Arc | aPetriNetwork.arcs)]
+		[if (arc.direction = ArcDirection::P2T)]
+			[arc.place.name/] -> [arc.transition.name/] [arc.propsString()/]
+		[else]
+			[arc.transition.name/] -> [arc.place.name/] [arc.propsString()/]
+		[/if]
+	[/for]
+}
+[/file]
+[/template]
+
+[query public getInArcs(t : Transition) : OrderedSet(Arc) =
+	t.arcs->select(direction = ArcDirection::P2T)->asOrderedSet()
+/]
+
+[query public getOutArcs(t : Transition) : OrderedSet(Arc) =
+	t.arcs->select(direction = ArcDirection::T2P)->asOrderedSet()
+/]
+
+[template public propsString(place : Place) post (trim())]
+['['/]shape=circle label="[if (place.marking > 0)][place.marking/][/if]" xlabel="[place.name/]"[']'/]
+[/template]
+
+[template public propsString(_ : Transition) post (trim())]
+['['/]shape=square[']'/]
+[/template]
+
+[template public propsString(arc : Arc) post (trim())]
+['['/]arrowhead=[if (arc.kind = ArcKind::read)]dot[else]normal[/if][if (arc.weight > 1)] xlabel=[arc.weight/][/if][']'/]
+[/template]

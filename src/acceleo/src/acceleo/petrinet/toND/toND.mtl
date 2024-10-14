@@ -1,0 +1,63 @@
+[comment encoding = UTF-8 /]
+[module toND('http://www.example.org/petrinet')]
+
+
+[template public petrinetToND(aPetriNetwork : PetriNetwork)]
+[comment @main/]
+[file (aPetriNetwork.name + '.net', false, 'UTF-8')]
+net [aPetriNetwork.name/]
+	[let places : OrderedSet(Place) = aPetriNetwork.getPlaces()] 
+		[if (places->size() > 0)]
+			[for (place : Place | places)]
+[place.toND()/]
+			[/for]
+		[/if]
+	[/let]
+	[let transitions : OrderedSet(Transition) = aPetriNetwork.getTransitions()] 
+		[if (transitions->size() > 0)]
+			[for (transition : Transition | transitions)]
+[transition.toND()/]
+			[/for]
+		[/if]
+	[/let]
+[/file]
+[/template]
+
+[comment Place class relative /]
+[query public getPlaces(p: PetriNetwork) : OrderedSet(Place) = 
+	p.places->asOrderedSet()
+/]
+
+[template public toND(place : Place) post (trim()) ]
+	pl [place.name/] ([place.marking/])
+[/template]
+
+[comment Transition class relative /]
+[query public getTransitions(p: PetriNetwork) : OrderedSet(Transition) = 
+	p.transitions->asOrderedSet()
+/]
+
+[template public toND(transition : Transition) post (trim()) ]
+[let inArcs : OrderedSet(Arc) = transition.getInArcs()]
+[let outArcs : OrderedSet(Arc) = transition.getOutArcs()]
+tr [transition.name/] [for (arc : Arc | inArcs)][arc.toND()/] [/for]-> [for (arc : Arc | outArcs)][arc.place.name/] [/for]
+[/let]
+[/let]
+[/template]
+
+[query public getInArcs(t : Transition) : OrderedSet(Arc) =
+	t.arcs->select(direction = ArcDirection::P2T)->asOrderedSet()
+/]
+
+[query public getOutArcs(t : Transition) : OrderedSet(Arc) =
+	t.arcs->select(direction = ArcDirection::T2P)->asOrderedSet()
+/]
+
+[comment Arc class relative /]
+[template public toND(arc : Arc) post (trim()) ]
+[if (arc.kind = ArcKind::read)]
+[arc.place.name/]?[arc.weight/]
+[else]
+[arc.place.name/][if (arc.weight > 1)]*[arc.weight/][/if]
+[/if]
+[/template]

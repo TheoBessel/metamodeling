@@ -15,6 +15,7 @@
 			#fields {
 				display: flex;
 				gap: 4rem;
+				justify-content: center;
 			}
 
 			table {
@@ -29,6 +30,7 @@
 				caption-side: bottom;
 				padding: 10px;
 				font-weight: bold;
+				font-size: 1.1rem;
 			}
 
 			thead, tfoot {
@@ -61,69 +63,63 @@
 		<h1>Petrinet : [aPetriNetwork.name/]</h1>
 
 		<div id="fields">
-			<div id="places">
-				<h2>Places :</h2>
-				<table>
-					<thead>
-						<tr>
-							<th>Name</th>
-							<th>Marking</th>
-						</tr>
-					</thead>
-					<tbody>
-						[let places : OrderedSet(Place) = aPetriNetwork.getPlaces() ] 
-							[if (places->size() > 0)]
-								[for (place : Place | places)]
-									[place.toHTML()/]
-								[/for]
-							[/if]
-						[/let]
-					</tbody>
-				</table>
-			</div>
+			<table id="places">
+				<caption>Places</caption>
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Marking</th>
+					</tr>
+				</thead>
+				<tbody>
+					[let places : OrderedSet(Place) = aPetriNetwork.getPlaces()] 
+						[if (places->size() > 0)]
+							[for (place : Place | places)]
+								[place.toHTML()/]
+							[/for]
+						[/if]
+					[/let]
+				</tbody>
+			</table>
 
-			<div id="transitions">
-				<h2>Transitions :</h2>
-				<table>
-					<thead>
-						<tr>
-							<th>Name</th>
-						</tr>
-					</thead>
-					<tbody>
-						[let transitions : OrderedSet(Transition) = aPetriNetwork.getTransitions() ] 
-							[if (transitions->size() > 0)]
-								[for (transition : Transition | transitions)]
-									[transition.toHTML()/]
-								[/for]
-							[/if]
-						[/let]
-					</tbody>
-				</table>
-			</div>
+			<table id="transitions">
+				<caption>Transitions</caption>
+				<thead>
+					<tr>
+						<th>Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					[let transitions : OrderedSet(Transition) = aPetriNetwork.getTransitions()] 
+						[if (transitions->size() > 0)]
+							[for (transition : Transition | transitions)]
+								[transition.toHTML()/]
+							[/for]
+						[/if]
+					[/let]
+				</tbody>
+			</table>
 
-			<div id="arcs">
-				<h2>Arcs :</h2>
-				<table>
-					<thead>
-						<tr>
-							<th>From</th>
-							<th>To</th>
-							<th>Type</th>
-							<th>Weight</th>
-						</tr>
-					</thead>
-					<tbody>
-						[let arcs : OrderedSet(Arc) = aPetriNetwork.getArcs() ] 
-							[if (arcs->size() > 0)]
-								[for (arc : Arc | arcs)]
-									[arc.toHTML()/]
-								[/for]
-							[/if]
-						[/let]
-					</tbody>
-				</table>
-			</div>
+			<table id="arcs">
+				<caption>Arcs</caption>
+				<thead>
+					<tr>
+						<th>From</th>
+						<th>To</th>
+						<th>Type</th>
+						<th>Weight</th>
+					</tr>
+				</thead>
+				<tbody>
+					[let arcs : OrderedSet(Arc) = aPetriNetwork.getArcs()] 
+						[if (arcs->size() > 0)]
+							[for (arc : Arc | arcs)]
+								[arc.toHTML()/]
+							[/for]
+						[/if]
+					[/let]
+				</tbody>
+			</table>
 		</div>
 	</body>
 [/file]
@@ -134,7 +130,7 @@
 	p.places->asOrderedSet()
 /]
 
-[template public toHTML(place : Place) post (trim()) ]
+[template public toHTML(place : Place) post (trim())]
 	<tr>
 		<th>[place.name/]</th>
 		<td>[place.marking/]</td>
@@ -146,7 +142,7 @@
 	p.transitions->asOrderedSet()
 /]
 
-[template public toHTML(transition : Transition) post (trim()) ]
+[template public toHTML(transition : Transition) post (trim())]
 	<tr>
 		<td>[transition.name/]</td>
 	</tr>
@@ -157,9 +153,9 @@
 	p.arcs->asOrderedSet()
 /]
 
-[template public toHTML(arc : Arc) post (trim()) ]
+[template public toHTML(arc : Arc) post (trim())]
 	<tr>
-		[if arc.direction.toString() = 'P2T']
+		[if arc.direction = ArcDirection::P2T]
 			<th>[arc.place.name/]</th>
 			<td>[arc.transition.name/]</td>
 		[else]

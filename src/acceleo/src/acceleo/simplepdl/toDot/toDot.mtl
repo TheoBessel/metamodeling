@@ -1,0 +1,32 @@
+[comment encoding = UTF-8 /]
+[module toDot('http://www.example.org/simplepdl')]
+
+
+[template public simplepdlToDot(aProcess : Process)]
+[comment @main/]
+[file (aProcess.name + '.dot', false, 'UTF-8')]
+digraph [aProcess.name/] {
+[let sequences : OrderedSet(WorkSequence) = aProcess.getWorkSequences()]
+[for (sequence : WorkSequence | sequences)]
+	[sequence.toDot()/]
+[/for]
+[/let]
+}
+[/file]
+[/template]
+
+[query public getWorkSequences(p: Process) : OrderedSet(WorkSequence) = 
+	p.processElements->selectByType(WorkSequence)->asOrderedSet()
+/]
+
+[template public toDot(sequence : WorkSequence) post (trim())]
+[sequence.predecessor.name/] -> [sequence.successor.name/] ['['/]arrowhead=normal label=[sequence.linkType.stringify()/][']'/]
+[/template]
+
+[template public stringify(linkType : WorkSequenceType) post (trim())]
+[linkType.toString().tokenize('To')
+	->collect(e | e.toLowerFirst().first(1))
+	->asSequence()
+	->insertAt(2, '2')
+	->toString()/]
+[/template]

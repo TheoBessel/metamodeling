@@ -8,7 +8,7 @@
  * Contributors:
  *     Obeo - initial API and implementation
  *******************************************************************************/
-package petrinet.toHTML.main;
+package acceleo.simplepdl.toHTML;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +23,7 @@ import org.eclipse.emf.common.util.Monitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import petrinet.PetrinetPackage;
+import simplepdl.SimplepdlPackage;
 
 /**
  * Entry point of the 'ToHTML' generation module.
@@ -36,14 +36,14 @@ public class ToHTML extends AbstractAcceleoGenerator {
      *
      * @generated
      */
-    public static final String MODULE_FILE_NAME = "/petrinet/toHTML/main/toHTML";
+    public static final String MODULE_FILE_NAME = "/acceleo/simplepdl/toHTML/toHTML";
     
     /**
      * The name of the templates that are to be generated.
      *
      * @generated
      */
-    public static final String[] TEMPLATE_NAMES = { "petrinetToHTML" };
+    public static final String[] TEMPLATE_NAMES = { "simplepdlToHTML" };
     
     /**
      * The list of properties files from the launch parameters (Launch configuration).
@@ -340,9 +340,9 @@ public class ToHTML extends AbstractAcceleoGenerator {
      */
     @Override
     public void registerPackages(ResourceSet resourceSet) {
-    	if (!isInWorkspace(PetrinetPackage.class)) {
-    		// The normal package registration if your metamodel is in a plugin.
-    		resourceSet.getPackageRegistry().put(PetrinetPackage.eNS_URI, PetrinetPackage.eINSTANCE);
+    	if (!isInWorkspace(SimplepdlPackage.class)) {
+            // The normal package registration if your metamodel is in a plugin.
+            resourceSet.getPackageRegistry().put(SimplepdlPackage.eNS_URI, SimplepdlPackage.eINSTANCE);
     	}
         super.registerPackages(resourceSet);
         
