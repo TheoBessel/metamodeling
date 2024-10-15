@@ -41,7 +41,7 @@ public class GuidanceImpl extends ProcessElementImpl implements Guidance {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String TEXT_EDEFAULT = null;
+	protected static final String TEXT_EDEFAULT = "guidance";
 
 	/**
 	 * The cached value of the '{@link #getText() <em>Text</em>}' attribute.

@@ -26,6 +26,7 @@
     <genClasses ecoreClass="petrinet.ecore#//Transition">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference petrinet.ecore#//Transition/petriNet"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute petrinet.ecore#//Transition/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference petrinet.ecore#//Transition/arcs"/>
     </genClasses>
     <genClasses ecoreClass="petrinet.ecore#//Arc">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute petrinet.ecore#//Arc/weight"/>

@@ -2,17 +2,22 @@
  */
 package petrinet.model;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+import org.eclipse.emf.ecore.util.InternalEList;
+import petrinet.Arc;
 import petrinet.PetriNetwork;
 import petrinet.PetrinetPackage;
 import petrinet.Transition;
@@ -27,6 +32,7 @@ import petrinet.Transition;
  * <ul>
  *   <li>{@link petrinet.model.TransitionImpl#getPetriNet <em>Petri Net</em>}</li>
  *   <li>{@link petrinet.model.TransitionImpl#getName <em>Name</em>}</li>
+ *   <li>{@link petrinet.model.TransitionImpl#getArcs <em>Arcs</em>}</li>
  * </ul>
  *
  * @generated
@@ -50,6 +56,16 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getArcs() <em>Arcs</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getArcs()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Arc> arcs;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -146,12 +162,29 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * @generated
 	 */
 	@Override
+	public EList<Arc> getArcs() {
+		if (arcs == null) {
+			arcs = new EObjectWithInverseResolvingEList<Arc>(Arc.class, this, PetrinetPackage.TRANSITION__ARCS,
+					PetrinetPackage.ARC__TRANSITION);
+		}
+		return arcs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case PetrinetPackage.TRANSITION__PETRI_NET:
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			return basicSetPetriNet((PetriNetwork) otherEnd, msgs);
+		case PetrinetPackage.TRANSITION__ARCS:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getArcs()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -166,6 +199,8 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 		switch (featureID) {
 		case PetrinetPackage.TRANSITION__PETRI_NET:
 			return basicSetPetriNet(null, msgs);
+		case PetrinetPackage.TRANSITION__ARCS:
+			return ((InternalEList<?>) getArcs()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -197,6 +232,8 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 			return getPetriNet();
 		case PetrinetPackage.TRANSITION__NAME:
 			return getName();
+		case PetrinetPackage.TRANSITION__ARCS:
+			return getArcs();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -206,6 +243,7 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -214,6 +252,10 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 			return;
 		case PetrinetPackage.TRANSITION__NAME:
 			setName((String) newValue);
+			return;
+		case PetrinetPackage.TRANSITION__ARCS:
+			getArcs().clear();
+			getArcs().addAll((Collection<? extends Arc>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -233,6 +275,9 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 		case PetrinetPackage.TRANSITION__NAME:
 			setName(NAME_EDEFAULT);
 			return;
+		case PetrinetPackage.TRANSITION__ARCS:
+			getArcs().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -249,6 +294,8 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 			return getPetriNet() != null;
 		case PetrinetPackage.TRANSITION__NAME:
 			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+		case PetrinetPackage.TRANSITION__ARCS:
+			return arcs != null && !arcs.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

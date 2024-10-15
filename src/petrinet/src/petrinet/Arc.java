@@ -28,12 +28,13 @@ import org.eclipse.emf.ecore.EObject;
 public interface Arc extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Weight</b></em>' attribute.
+	 * The default value is <code>"1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Weight</em>' attribute.
 	 * @see #setWeight(int)
 	 * @see petrinet.PetrinetPackage#getArc_Weight()
-	 * @model required="true"
+	 * @model default="1" required="true"
 	 * @generated
 	 */
 	int getWeight();
@@ -100,12 +101,14 @@ public interface Arc extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Transition</b></em>' reference.
+	 * It is bidirectional and its opposite is '{@link petrinet.Transition#getArcs <em>Arcs</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Transition</em>' reference.
 	 * @see #setTransition(Transition)
 	 * @see petrinet.PetrinetPackage#getArc_Transition()
-	 * @model required="true"
+	 * @see petrinet.Transition#getArcs
+	 * @model opposite="arcs" required="true"
 	 * @generated
 	 */
 	Transition getTransition();

@@ -2,7 +2,6 @@
  */
 package simplepdl;
 
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Resource</b></em>'.
@@ -23,12 +22,13 @@ package simplepdl;
 public interface Resource extends ProcessElement {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
+	 * The default value is <code>"resource"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see simplepdl.SimplepdlPackage#getResource_Name()
-	 * @model required="true"
+	 * @model default="resource" required="true"
 	 * @generated
 	 */
 	String getName();

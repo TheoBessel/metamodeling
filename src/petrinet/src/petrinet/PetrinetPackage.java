@@ -150,13 +150,22 @@ public interface PetrinetPackage extends EPackage {
 	int TRANSITION__NAME = 1;
 
 	/**
+	 * The feature id for the '<em><b>Arcs</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION__ARCS = 2;
+
+	/**
 	 * The number of structural features of the '<em>Transition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_FEATURE_COUNT = 2;
+	int TRANSITION_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Transition</em>' class.
@@ -411,6 +420,17 @@ public interface PetrinetPackage extends EPackage {
 	EAttribute getTransition_Name();
 
 	/**
+	 * Returns the meta object for the reference list '{@link petrinet.Transition#getArcs <em>Arcs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Arcs</em>'.
+	 * @see petrinet.Transition#getArcs()
+	 * @see #getTransition()
+	 * @generated
+	 */
+	EReference getTransition_Arcs();
+
+	/**
 	 * Returns the meta object for class '{@link petrinet.Arc <em>Arc</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -639,6 +659,14 @@ public interface PetrinetPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TRANSITION__NAME = eINSTANCE.getTransition_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Arcs</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TRANSITION__ARCS = eINSTANCE.getTransition_Arcs();
 
 		/**
 		 * The meta object literal for the '{@link petrinet.model.ArcImpl <em>Arc</em>}' class.

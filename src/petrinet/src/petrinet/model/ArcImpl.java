@@ -48,7 +48,7 @@ public class ArcImpl extends EObjectImpl implements Arc {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int WEIGHT_EDEFAULT = 0;
+	protected static final int WEIGHT_EDEFAULT = 1;
 
 	/**
 	 * The cached value of the '{@link #getWeight() <em>Weight</em>}' attribute.
@@ -242,13 +242,41 @@ public class ArcImpl extends EObjectImpl implements Arc {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public void setTransition(Transition newTransition) {
+	public NotificationChain basicSetTransition(Transition newTransition, NotificationChain msgs) {
 		Transition oldTransition = transition;
 		transition = newTransition;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PetrinetPackage.ARC__TRANSITION, oldTransition,
-					transition));
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					PetrinetPackage.ARC__TRANSITION, oldTransition, newTransition);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setTransition(Transition newTransition) {
+		if (newTransition != transition) {
+			NotificationChain msgs = null;
+			if (transition != null)
+				msgs = ((InternalEObject) transition).eInverseRemove(this, PetrinetPackage.TRANSITION__ARCS,
+						Transition.class, msgs);
+			if (newTransition != null)
+				msgs = ((InternalEObject) newTransition).eInverseAdd(this, PetrinetPackage.TRANSITION__ARCS,
+						Transition.class, msgs);
+			msgs = basicSetTransition(newTransition, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PetrinetPackage.ARC__TRANSITION, newTransition,
+					newTransition));
 	}
 
 	/**
@@ -347,6 +375,11 @@ public class ArcImpl extends EObjectImpl implements Arc {
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+		case PetrinetPackage.ARC__TRANSITION:
+			if (transition != null)
+				msgs = ((InternalEObject) transition).eInverseRemove(this, PetrinetPackage.TRANSITION__ARCS,
+						Transition.class, msgs);
+			return basicSetTransition((Transition) otherEnd, msgs);
 		case PetrinetPackage.ARC__PETRI_NET:
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
@@ -363,6 +396,8 @@ public class ArcImpl extends EObjectImpl implements Arc {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+		case PetrinetPackage.ARC__TRANSITION:
+			return basicSetTransition(null, msgs);
 		case PetrinetPackage.ARC__PETRI_NET:
 			return basicSetPetriNet(null, msgs);
 		}

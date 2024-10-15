@@ -55,6 +55,7 @@ public class TransitionItemProvider extends ItemProviderAdapter implements IEdit
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
+			addArcsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -73,6 +74,21 @@ public class TransitionItemProvider extends ItemProviderAdapter implements IEdit
 								"_UI_Transition_type"),
 						PetrinetPackage.Literals.TRANSITION__NAME, true, false, false,
 						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Arcs feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addArcsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Transition_arcs_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Transition_arcs_feature",
+								"_UI_Transition_type"),
+						PetrinetPackage.Literals.TRANSITION__ARCS, true, false, true, null, null, null));
 	}
 
 	/**

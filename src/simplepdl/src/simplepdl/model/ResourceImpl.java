@@ -3,11 +3,8 @@
 package simplepdl.model;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import simplepdl.Resource;
 import simplepdl.SimplepdlPackage;
 
@@ -34,7 +31,7 @@ public class ResourceImpl extends ProcessElementImpl implements Resource {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String NAME_EDEFAULT = null;
+	protected static final String NAME_EDEFAULT = "resource";
 
 	/**
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.

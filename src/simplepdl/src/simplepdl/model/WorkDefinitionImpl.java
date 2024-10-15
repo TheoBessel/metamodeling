@@ -48,7 +48,7 @@ public class WorkDefinitionImpl extends ProcessElementImpl implements WorkDefini
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String NAME_EDEFAULT = null;
+	protected static final String NAME_EDEFAULT = "workDefinition";
 
 	/**
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.

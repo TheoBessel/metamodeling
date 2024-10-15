@@ -17,8 +17,8 @@ import petrinet.ArcKind;
 import petrinet.PetriNetwork;
 import petrinet.PetrinetFactory;
 import petrinet.PetrinetPackage;
-
-
+import petrinet.Place;
+import simplepdl.ACResource;
 import simplepdl.Process;
 import simplepdl.WorkDefinition;
 import simplepdl.WorkSequence;
@@ -40,11 +40,11 @@ public class SimplePDLToPetriNet {
 		ResourceSet resSet = new ResourceSetImpl();
 
 		// Charger le modèle SimplePDL
-		URI simplepdlURI = URI.createURI("target/SimplePDLExample1.xmi");
+		URI simplepdlURI = URI.createURI("target/DeveloppementLogiciel.xmi");
 		Resource simplepdlResource = resSet.getResource(simplepdlURI, true);
 		
 		// Créer le modèle PetriNet
-		URI petriURI = URI.createURI("target/PetriNetFromSimplePDLExample1.xmi");
+		URI petriURI = URI.createURI("target/PetriNetFromDeveloppementLogiciel.xmi");
 		Resource petriResource = resSet.createResource(petriURI);
 		
 		// La fabrique pour fabriquer les éléments de SimplePDL
@@ -55,24 +55,63 @@ public class SimplePDLToPetriNet {
 		PetriNetwork petrinet = factory.createPetriNetwork();
 		petrinet.setName(process.getName());
 
-		// On mappe les WorkDefinition avec les équivalences PetriNet
-		Map<WorkDefinition, WorkDefinitionToPetriNet> map = new HashMap<>();
+		// On construit les resources
+		Map<simplepdl.Resource, Place> resources = new HashMap<>();
+		for (Object o : process.getProcessElements()) {
+			if (o instanceof simplepdl.Resource) {
+				simplepdl.Resource resource = (simplepdl.Resource) o;
+				
+				Place resourcePlace = factory.createPlace();
+				resourcePlace.setName(resource.getName());
+				resourcePlace.setMarking(resource.getQuantity());
+			
+				petrinet.getPlaces().add(resourcePlace);
+				
+				resources.put(resource, resourcePlace);
+			}
+		}
+		
+		// On construit les workDefinitions
+		Map<WorkDefinition, WorkDefinitionToPetriNet> workDefinitions = new HashMap<>();
 		for (Object o : process.getProcessElements()) {
 			if (o instanceof WorkDefinition) {
 				WorkDefinition wd = (WorkDefinition) o;
 				WorkDefinitionToPetriNet wdToPn = new WorkDefinitionToPetriNet(wd, petrinet, factory);
+				
 				wdToPn.buildPetriNet();
-				map.put(wd, wdToPn);
+				
+				workDefinitions.put(wd, wdToPn);
+				
+				for (ACResource acResource : wd.getResources()) {
+					Place resourcePlace = resources.get(acResource.getResource()); 
+					
+					Arc getResourceArc = factory.createArc();
+					getResourceArc.setPlace(resourcePlace);
+					getResourceArc.setTransition(wdToPn.getStarts());
+					getResourceArc.setDirection(ArcDirection.P2T);
+					getResourceArc.setKind(ArcKind.NORMAL);
+					getResourceArc.setWeight(acResource.getResourceQuantity());
+					petrinet.getArcs().add(getResourceArc);
+	
+					Arc returnResourceArc = factory.createArc();
+					returnResourceArc.setPlace(resourcePlace);
+					returnResourceArc.setTransition(wdToPn.getFinishes());
+					returnResourceArc.setDirection(ArcDirection.T2P);
+					returnResourceArc.setKind(ArcKind.NORMAL);
+					returnResourceArc.setWeight(acResource.getResourceQuantity());
+					petrinet.getArcs().add(returnResourceArc);
+				}
 			}
 		}
 		
+		// On construit les WorkSequences
 		for (Object o : process.getProcessElements()) {
 			if (o instanceof WorkSequence) {
 				WorkSequence ws = (WorkSequence) o;
 				WorkSequenceType linkType = ws.getLinkType();
 				
-				WorkDefinitionToPetriNet predecessor = map.get(ws.getPredecessor());
-				WorkDefinitionToPetriNet successor = map.get(ws.getSuccessor());
+				WorkDefinitionToPetriNet predecessor = workDefinitions.get(ws.getPredecessor());
+				WorkDefinitionToPetriNet successor = workDefinitions.get(ws.getSuccessor());
 				
 				Arc link = factory.createArc();
 				link.setDirection(ArcDirection.P2T);

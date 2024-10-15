@@ -44,7 +44,7 @@ public class ProcessImpl extends EObjectImpl implements simplepdl.Process {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String NAME_EDEFAULT = null;
+	protected static final String NAME_EDEFAULT = "process";
 
 	/**
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.

@@ -26,12 +26,13 @@ import org.eclipse.emf.ecore.EObject;
 public interface Process extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
+	 * The default value is <code>"process"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see simplepdl.SimplepdlPackage#getProcess_Name()
-	 * @model required="true"
+	 * @model default="process" required="true"
 	 * @generated
 	 */
 	String getName();

@@ -24,12 +24,13 @@ import org.eclipse.emf.common.util.EList;
 public interface Guidance extends ProcessElement {
 	/**
 	 * Returns the value of the '<em><b>Text</b></em>' attribute.
+	 * The default value is <code>"guidance"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Text</em>' attribute.
 	 * @see #setText(String)
 	 * @see simplepdl.SimplepdlPackage#getGuidance_Text()
-	 * @model required="true"
+	 * @model default="guidance" required="true"
 	 * @generated
 	 */
 	String getText();

@@ -2,6 +2,7 @@
  */
 package petrinet;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -15,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link petrinet.Transition#getPetriNet <em>Petri Net</em>}</li>
  *   <li>{@link petrinet.Transition#getName <em>Name</em>}</li>
+ *   <li>{@link petrinet.Transition#getArcs <em>Arcs</em>}</li>
  * </ul>
  *
  * @see petrinet.PetrinetPackage#getTransition()
@@ -53,7 +55,7 @@ public interface Transition extends EObject {
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see petrinet.PetrinetPackage#getTransition_Name()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	String getName();
@@ -67,5 +69,19 @@ public interface Transition extends EObject {
 	 * @generated
 	 */
 	void setName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Arcs</b></em>' reference list.
+	 * The list contents are of type {@link petrinet.Arc}.
+	 * It is bidirectional and its opposite is '{@link petrinet.Arc#getTransition <em>Transition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Arcs</em>' reference list.
+	 * @see petrinet.PetrinetPackage#getTransition_Arcs()
+	 * @see petrinet.Arc#getTransition
+	 * @model opposite="transition" lower="2"
+	 * @generated
+	 */
+	EList<Arc> getArcs();
 
 } // Transition

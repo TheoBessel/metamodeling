@@ -6,12 +6,14 @@
         eType="#//Process" eOpposite="#//Process/processElements"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Process">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="process"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="processElements" upperBound="-1"
         eType="#//ProcessElement" containment="true" eOpposite="#//ProcessElement/process"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Guidance" eSuperTypes="#//ProcessElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="guidance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
         eType="#//ProcessElement"/>
   </eClassifiers>
@@ -22,7 +24,8 @@
     <eLiterals name="finishToFinish" value="3"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WorkDefinition" eSuperTypes="#//ProcessElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="workDefinition"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="linksToSuccessors" upperBound="-1"
         eType="#//WorkSequence" eOpposite="#//WorkSequence/predecessor"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="linksToPredecessors" upperBound="-1"
@@ -39,7 +42,8 @@
         eType="#//WorkDefinition" eOpposite="#//WorkDefinition/linksToPredecessors"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Resource" eSuperTypes="#//ProcessElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="resource"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="quantity" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>

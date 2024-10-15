@@ -13,16 +13,18 @@
   <eClassifiers xsi:type="ecore:EClass" name="Transition">
     <eStructuralFeatures xsi:type="ecore:EReference" name="petriNet" lowerBound="1"
         eType="#//PetriNetwork" eOpposite="#//PetriNetwork/transitions"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arcs" lowerBound="2" upperBound="-1"
+        eType="#//Arc" eOpposite="#//Arc/transition"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Arc">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//ArcKind"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" lowerBound="1"
         eType="#//ArcDirection"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="transition" lowerBound="1"
-        eType="#//Transition"/>
+        eType="#//Transition" eOpposite="#//Transition/arcs"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="place" lowerBound="1" eType="#//Place"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="petriNet" lowerBound="1"
         eType="#//PetriNetwork" eOpposite="#//PetriNetwork/arcs"/>
@@ -40,6 +42,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ArcDirection">
     <eLiterals name="P2T"/>
-    <eLiterals name="T2P"/>
+    <eLiterals name="T2P" value="1"/>
   </eClassifiers>
 </ecore:EPackage>

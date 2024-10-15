@@ -7,8 +7,6 @@ import petrinet.PetriNetwork;
 import petrinet.PetrinetFactory;
 import petrinet.Place;
 import petrinet.Transition;
-import simplepdl.ACResource;
-import simplepdl.Resource;
 import simplepdl.WorkDefinition;
 
 public class WorkDefinitionToPetriNet {
@@ -38,7 +36,6 @@ public class WorkDefinitionToPetriNet {
 		buildPlaces();
 		buildTransitions();
 		buildArcs();
-		buildResources();
 	}
 
 	private void buildPlaces() {
@@ -92,32 +89,6 @@ public class WorkDefinitionToPetriNet {
 	        arcs[i].setDirection((ArcDirection) arcData[i][2]);
 	        pn.getArcs().add(arcs[i]);
 	    }
-	}
-	private void buildResources() {
-		for (ACResource acResource : wd.getResources()) {
-			Resource resource = acResource.getResource();
-			
-			Place resourcePlace = factory.createPlace();
-			resourcePlace.setName(resource.getName());
-			resourcePlace.setMarking(resource.getQuantity());
-			pn.getPlaces().add(resourcePlace);
-			
-			Arc getResourceArc = factory.createArc();
-			getResourceArc.setPlace(resourcePlace);
-			getResourceArc.setTransition(starts);
-			getResourceArc.setDirection(ArcDirection.P2T);
-			getResourceArc.setKind(ArcKind.NORMAL);
-			getResourceArc.setWeight(resource.getQuantity());
-			pn.getArcs().add(getResourceArc);
-
-			Arc returnResourceArc = factory.createArc();
-			returnResourceArc.setPlace(resourcePlace);
-			returnResourceArc.setTransition(finishes);
-			returnResourceArc.setDirection(ArcDirection.T2P);
-			returnResourceArc.setKind(ArcKind.NORMAL);
-			returnResourceArc.setWeight(resource.getQuantity());
-			pn.getArcs().add(returnResourceArc);
-		}
 	}
 
 	// Attributes

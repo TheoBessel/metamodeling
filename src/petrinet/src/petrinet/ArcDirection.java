@@ -36,7 +36,7 @@ public enum ArcDirection implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	T2P(0, "T2P", "T2P");
+	T2P(1, "T2P", "T2P");
 
 	/**
 	 * The '<em><b>P2T</b></em>' literal value.
@@ -58,7 +58,7 @@ public enum ArcDirection implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int T2P_VALUE = 0;
+	public static final int T2P_VALUE = 1;
 
 	/**
 	 * An array of all the '<em><b>Arc Direction</b></em>' enumerators.
@@ -124,6 +124,8 @@ public enum ArcDirection implements Enumerator {
 		switch (value) {
 		case P2T_VALUE:
 			return P2T;
+		case T2P_VALUE:
+			return T2P;
 		}
 		return null;
 	}

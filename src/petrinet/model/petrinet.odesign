@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="petrinet" version="12.0.0.2017041100">
+  <ownedViewpoints name="petrinetViewpoint">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="petrinetDiagram" domainClass="petrinet.PetriNetwork" enablePopupBars="true">
+      <metamodel href="petrinet.ecore#/"/>
+      <defaultLayer name="Default">
+        <nodeMappings name="Place" domainClass="petrinet.Place">
+          <borderedNodeMappings name="PlaceName" semanticCandidatesExpression="aql:self" domainClass="petrinet.Place">
+            <style xsi:type="style:NoteDescription" labelSize="10" showIcon="false" labelExpression="aql:self.name" labelAlignment="LEFT">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='yellow']"/>
+            </style>
+          </borderedNodeMappings>
+          <style xsi:type="style:DotDescription" labelSize="12" showIcon="false" labelExpression="aql:self.marking" labelPosition="node">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='purple']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_purple']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="Transition" domainClass="petrinet.Transition">
+          <style xsi:type="style:SquareDescription" showIcon="false" labelExpression="aql:self.name" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_green']"/>
+          </style>
+        </nodeMappings>
+        <edgeMappings name="Arc" sourceMapping="//@ownedViewpoints[name='petrinetViewpoint']/@ownedRepresentations[name='petrinetDiagram']/@defaultLayer/@nodeMappings[name='Place'] //@ownedViewpoints[name='petrinetViewpoint']/@ownedRepresentations[name='petrinetDiagram']/@defaultLayer/@nodeMappings[name='Transition']" targetMapping="//@ownedViewpoints[name='petrinetViewpoint']/@ownedRepresentations[name='petrinetDiagram']/@defaultLayer/@nodeMappings[name='Transition'] //@ownedViewpoints[name='petrinetViewpoint']/@ownedRepresentations[name='petrinetDiagram']/@defaultLayer/@nodeMappings[name='Place']" targetFinderExpression="aql:if(self.direction.toString() = 'P2T') then self.transition else self.place endif" sourceFinderExpression="aql:if(self.direction.toString() = 'P2T') then self.place else self.transition endif" domainClass="petrinet.Arc" useDomainElement="true">
+          <style sizeComputationExpression="aql:self.weight.min(5)">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <centerLabelStyleDescription labelSize="12" showIcon="false">
+              <labelFormat>italic</labelFormat>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+          <conditionnalStyles predicateExpression="aql:self.kind.toString() = 'read'">
+            <style targetArrow="Dot" sizeComputationExpression="aql:self.weight.min(5)">
+              <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <centerLabelStyleDescription labelSize="12">
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              </centerLabelStyleDescription>
+            </style>
+          </conditionnalStyles>
+        </edgeMappings>
+        <toolSections>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="Place" nodeMappings="//@ownedViewpoints[name='petrinetViewpoint']/@ownedRepresentations[name='petrinetDiagram']/@defaultLayer/@nodeMappings[name='Place']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="petrinet.Place" referenceName="places" variableName="place"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="Transition" nodeMappings="//@ownedViewpoints[name='petrinetViewpoint']/@ownedRepresentations[name='petrinetDiagram']/@defaultLayer/@nodeMappings[name='Transition']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:container">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="petrinet.Transition" referenceName="transitions" variableName="transition"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="Arc" edgeMappings="//@ownedViewpoints[name='petrinetViewpoint']/@ownedRepresentations[name='petrinetDiagram']/@defaultLayer/@edgeMappings[name='Arc']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.petriNet">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="petrinet.Arc" referenceName="arcs" variableName="arc">
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="place" valueExpression="aql:if(source.eClass().name = 'Place') then source else target endif"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="transition" valueExpression="aql:if(source.eClass().name = 'Place') then target else source endif"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="direction" valueExpression="aql:if(source.eClass().name = 'Place') then 'P2T' else 'T2P' endif"/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+      </defaultLayer>
+    </ownedRepresentations>
+  </ownedViewpoints>
+</description:Group>
