@@ -1,0 +1,142 @@
+-- @path petrinet=/petrinet/model/petrinet.ecore
+-- @path simplepdl=/simplepdl/model/simplepdl.ecore
+
+module simplepdlToPetrinet;
+create OUT : petrinet from IN : simplepdl;
+
+rule Process2PetriNet {
+	from p: simplepdl!Process
+	to 	 pn: petrinet!PetriNetwork (name <- p.name)
+}
+
+rule WorkDefinitionToPetriNet {
+	from wd: simplepdl!WorkDefinition
+	to
+		-- PLACES
+		notStarted: petrinet!Place(
+			petriNet 		<- wd.process,
+			name 	 		<- wd.name + '_notStarted',
+			marking  		<- 1
+		),
+
+		started: petrinet!Place(
+			petriNet 		<- wd.process,
+			name 			<- wd.name + '_started',
+			marking 		<- 0
+		),
+
+		running: petrinet!Place(
+			petriNet 		<- wd.process,
+			name 			<- wd.name + '_running',
+			marking 		<- 0
+		),
+
+		finished: petrinet!Place(
+			petriNet 		<- wd.process,
+			name 			<- wd.name + '_finished',
+			marking 		<- 0
+		),
+
+
+		-- TRANSITIONS
+		starts: petrinet!Transition(
+			petriNet 		<- wd.process,
+			name 			<- wd.name + '_starts'
+		),
+
+		finishes: petrinet!Transition(
+			petriNet 		<- wd.process,
+			name 			<- wd.name + '_finishes'
+		),
+
+
+		-- ARCS
+		notStartedToStarts: petrinet!Arc(
+			petriNet 		<- wd.process,
+			kind			<- #normal,
+			place 			<- notStarted,
+			transition 		<- starts,
+			direction		<- #P2T
+		),
+
+		startsToRunning: petrinet!Arc(
+			petriNet 		<- wd.process,
+			kind			<- #normal,
+			place 			<- running,
+			transition 		<- starts,
+			direction		<- #T2P
+		),
+
+		startsToStarted: petrinet!Arc(
+			petriNet 		<- wd.process,
+			kind			<- #normal,
+			place 			<- started,
+			transition 		<- starts,
+			direction		<- #T2P
+		),
+
+		startedToFinishes: petrinet!Arc(
+			petriNet 		<- wd.process,
+			kind			<- #normal,
+			place 			<- started,
+			transition 		<- finishes,
+			direction		<- #P2T
+		),
+
+		finishesTofinished: petrinet!Arc(
+			petriNet 		<- wd.process,
+			kind			<- #normal,
+			place 			<- finished,
+			transition 		<- finishes,
+			direction		<- #T2P
+		)
+}
+
+rule WorkSequenceToPetriNet {
+	from ws: simplepdl!WorkSequence
+	to
+		worksequence: petrinet!Arc(
+			petriNet 		<- ws.process,
+			kind			<- #read,
+			place 			<- thisModule.resolveTemp(
+				ws.predecessor,
+				if((ws.linkType = #finishToStart) or (ws.linkType = #finishToFinish)) then 'finished' else 'started' endif
+			),
+			transition 		<- thisModule.resolveTemp(
+				ws.successor,
+				if((ws.linkType = #finishToStart) or (ws.linkType = #startToStart)) then 'starts' else 'finishes' endif
+			),
+			direction		<- #P2T
+		)
+}
+
+rule ResourceToPetriNet {
+	from res: simplepdl!Resource
+	to
+		resource: petrinet!Place(
+			name 			<- res.name,
+			marking 		<- res.quantity,
+			petriNet 		<- res.process
+		)
+}
+
+rule ResourceACToPetriNet {
+	from ac: simplepdl!ACResource
+	to
+		get: petrinet!Arc(
+			petriNet 		<- ac.resource.process,
+			kind			<- #normal,
+			place			<- ac.resource,
+			transition		<- thisModule.resolveTemp(ac.workDefinition, 'starts'),
+			weight 			<- ac.resourceQuantity,
+			direction		<- #P2T
+		),
+		return: petrinet!Arc(
+			petriNet 		<- ac.resource.process,
+			kind			<- #normal,
+			place			<- ac.resource,
+			transition		<- thisModule.resolveTemp(ac.workDefinition, 'starts'),
+			weight 			<- ac.resourceQuantity,
+			direction		<- #T2P
+		)
+}
