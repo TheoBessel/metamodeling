@@ -24,7 +24,9 @@ Eclipse-LazyStart: true
 Export-Package: acceleo,
  acceleo.petrinet.toDot,
  acceleo.petrinet.toHTML,
+ acceleo.petrinet.toLTL,
  acceleo.petrinet.toND,
  acceleo.simplepdl.toDot,
- acceleo.simplepdl.toHTML
+ acceleo.simplepdl.toHTML,
+ acceleo.simplepdl.toLTL
 

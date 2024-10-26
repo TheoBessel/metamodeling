@@ -1,0 +1,16 @@
+[comment encoding = UTF-8 /]
+[module toLTL('http://www.example.org/petrinet')]
+
+
+[template public petrinetToLTL(aPetriNetwork : PetriNetwork)]
+[comment @main/]
+[file (aPetriNetwork.name + '.ltl', false, 'UTF-8')]
+[for (place : Place | aPetriNetwork.places.getFinishedPlaces())]
+<> [place.name/];
+[/for]
+[/file]
+[/template]
+
+[query public getFinishedPlaces(p : Place) : OrderedSet(Place) =
+	p->select(name.toString().last(9) = '_finished')->asOrderedSet()
+/]

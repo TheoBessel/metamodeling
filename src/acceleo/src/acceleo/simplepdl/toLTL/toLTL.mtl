@@ -1,0 +1,19 @@
+[comment encoding = UTF-8 /]
+[module toLTL('http://www.example.org/simplepdl')]
+
+
+[template public simplepdlToLTL(aProcess : Process)]
+[comment @main/]
+[file (aProcess.name + '.ltl', false, 'UTF-8')]
+[for (wd : WorkDefinition | aProcess.getWDs())]
+['[]'/] <> ([wd.name/]_notStarted + [wd.name/]_running + [wd.name/]_finished);
+<> (['[]'/] [wd.name/]_finished);
+[/for]
+[/file]
+[/template]
+
+[query public getWDs(p: Process) : OrderedSet(WorkDefinition) = 
+	p.processElements->select( e | e.oclIsTypeOf(WorkDefinition) )
+		->collect( e | e.oclAsType(WorkDefinition) )
+		->asOrderedSet()
+/]
